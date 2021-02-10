@@ -1,0 +1,14 @@
+{
+  "main": "index.js",
+  "version": "1.1.2",
+  
+  "name": "Comfy Theme",
+  "description": "A simple, customizable, comfy theme. (Ported with the addition of settings by Liam The Protogen.)",
+  "authors": [
+    "265924886461939712",
+    "441384103946878987"
+  ],
+  "tags": [
+    "themes"
+  ]
+}
