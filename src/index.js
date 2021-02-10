@@ -181,7 +181,7 @@ export default {
       style = document.createElement("style");
       style.appendChild(
         document.createTextNode(
-          `@import url("https://raw.githack.com/NYRI4/Comfy-theme/main/BetterDiscord/comfy.theme.css");`
+          `@import url("https://raw.githack.com/NYRI4/Comfy/master/comfy.theme.css");`
         )
       );
       document.head.appendChild(style);
