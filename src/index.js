@@ -1,3 +1,5 @@
+import { version } from "../goosemodModule.json";
+
 let settings = {
   statusIcon: false,
   statusMask: false,
