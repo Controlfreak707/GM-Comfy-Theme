@@ -1,20 +1,13 @@
 {
   "main": "src/index.js",
-  "version": "1.1.2",
-  
-  "name": "Comfy Theme",
-  "authors": [
-    "265924886461939712",
-    "441384103946878987"
-  ],
-  "description": "A simple, customizable, comfy theme. (Ported with the addition of settings by Liam The Protogen.)",
+  "version": "2.0.0",
+
+  "name": "Comfy-Theme",
+  "authors": ["265924886461939712", "441384103946878987"],
+  "description": "A simple customisable Discord theme (Ported with the addition of settings by Liam The Protogen.)",
   "images": [
-    "https://raw.githubusercontent.com/Controlfreak707/GM-Comfy-Theme/main/images/image-a.png",
-    "https://raw.githubusercontent.com/Controlfreak707/GM-Comfy-Theme/main/images/image-b.png",
-    "https://raw.githubusercontent.com/Controlfreak707/GM-Comfy-Theme/main/images/image-c.png",
-    "https://raw.githubusercontent.com/Controlfreak707/GM-Comfy-Theme/main/images/image-d.png"
+    "https://nyri4.github.io/Comfy/assets/banner.png",
+    "https://camo.githubusercontent.com/96eeaf1ffed3887d53b36f37b20aa5455e3a867c08551d2e9b5bb5b3c1d7f934/68747470733a2f2f692e6962622e636f2f70314a477943362f696d6167652e706e67"
   ],
-  "tags": [
-    "themes"
-  ]
+  "tags": ["theme"]
 }
