@@ -10,7 +10,8 @@ let settings = {
   avatarWithoutStatus: true,
   avatarRoundess: 5,
   avatarWidthInModals: 130,
-  coloredEmojiPicker: false,
+  serverRoundess: 8,
+  coloredEmojiPicker: true,
   mentionColorBar: "#C66262",
   mentionColorBackground: "#c662621f",
   mentionColorHover: "#c6626226",
@@ -31,6 +32,7 @@ let styleBetterSpotifySeekBar;
 let styleAvatarWithoutStatus;
 let styleAvatarRoundess;
 let styleAvatarWidthInModals;
+let styleServerRoundess;
 let styleColoredEmojiPicker;
 let styleMentionColorBar;
 let styleMentionColorBackground;
@@ -177,6 +179,19 @@ function updateSetting(setting, value = settings[setting]) {
             --avatar-width: ${value}px;
           }`;
           document.head.appendChild(styleAvatarWidthInModals);
+        }
+        break;
+      case "serverRoundess":
+        try {
+          styleServerRoundess.remove();
+        } catch {}
+
+        if (value) {
+          styleServerRoundess = document.createElement("style");
+          styleServerRoundess.textContent = `:root {
+            --server-radius: ${value}px;
+          }`;
+          document.head.appendChild(styleServerRoundess);
         }
         break;
       case "coloredEmojiPicker":
