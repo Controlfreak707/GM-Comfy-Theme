@@ -378,7 +378,7 @@ export default {
   goosemodHandlers: {
     onImport: async () => {
       style = document.createElement("style");
-      style.textContent = `@import "https://nyri4.github.io/Comfy/main.css";
+      style.textContent = `@import "https://nyri4.github.io/Comfy/betterdiscord/main.css";
       
         .theme-dark {
           --background-tertiary: #101320;
