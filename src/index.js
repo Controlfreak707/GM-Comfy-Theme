@@ -359,13 +359,13 @@ export default {
         },
         {
           type: "toggle",
-          text: "No Scrollbars",
+          text: "Scrollbars",
           onToggle: (value) => updateSetting("scrollbars", value),
           isToggled: () => settings.scrollbars,
         },
         {
           type: "toggle",
-          text: "Avatar Without Status",
+          text: "Avatar Status",
           onToggle: (value) => updateSetting("avatarStatus", value),
           isToggled: () => settings.avatarStatus,
         },
