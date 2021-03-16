@@ -1,11 +1,19 @@
 import { name, version } from "../goosemodModule.json";
 
+import { showToast } from "@goosemod";
+import { debug } from "@goosemod/logger";
+import settingsPage from "@goosemod/settings";
+
 let settings = {
   userPopoutAnimation: true,
   scrollbars: false,
-  avatarStatus: false,
-  avatarWidthInModals: 130,
+  betterSpotifyPluginSeekBar: true,
+  userButtonSpacing: 8,
+  avatarRoundess: 5,
+  statusRoundness: 3,
   serverRoundess: 8,
+  avatarWidthInModals: 130,
+  changeBonfireInModals: "https://nyri4.github.io/Comfy/assets/bonfire.gif",
   coloredEmojiPicker: true,
   mentionColor: "#f04747",
   unreadColor: "#7289da",
@@ -14,16 +22,25 @@ let settings = {
   mentionColorHover: "#c6626226",
   userSettingsColor: "#096dc0",
   chatButtonsColor: "#6E85D3",
-  circlesNextToRoleNames: true,
+  spotifyPluginSeekBar: "#1EDC62",
+  onlineStatusColor: "#43B581",
+  idleStatusColor: "#FAA61A",
+  dndStatusColor: "#F04747",
+  offlineStatusColor: "#747F8D",
+  circlesNextToRoleNames: 5,
   tooltips: true,
   discordLogo: false,
 };
 
 let styleUserPopoutAnimation;
 let styleScrollbars;
-let styleAvatarStatus;
-let styleAvatarWidthInModals;
+let styleBetterSpotifyPluginSeekBar;
+let styleUserButtonSpacing;
+let styleAvatarRoundess;
+let styleStatusRoundness;
 let styleServerRoundess;
+let styleAvatarWidthInModals;
+let styleChangeBonfireInModals;
 let styleColoredEmojiPicker;
 let styleMentionColor;
 let styleUnreadColor;
@@ -32,6 +49,11 @@ let styleMentionColorBackground;
 let styleMentionColorHover;
 let styleUserSettingsColor;
 let styleChatButtonsColor;
+let styleSpotifyPluginSeekBar;
+let styleOnlineStatusColor;
+let styleIdleStatusColor;
+let styleDndStatusColor;
+let styleOfflineStatusColor;
 let styleCirclesNextToRoleNames;
 let styleTooltips;
 let styleDiscordLogo;
@@ -65,38 +87,54 @@ function updateSetting(setting, value = settings[setting]) {
           document.head.appendChild(styleScrollbars);
         }
         break;
-      case "avatarStatus":
+      case "betterSpotifyPluginSeekBar":
         try {
-          styleAvatarStatus.remove();
+          styleBetterSpotifyPluginSeekBar.remove();
         } catch {}
 
         if (value) {
-          styleAvatarStatus = document.createElement("style");
-          styleAvatarStatus.textContent = `:root {
-            --avatar-mask: url(#svg-mask-avatar-status-round-32);
-            --avatar-status: 5px;
-          }`;
-          document.head.appendChild(styleAvatarStatus);
-        } else {
-          styleAvatarStatus = document.createElement("style");
-          styleAvatarStatus.textContent = `:root {
-            --avatar-mask: none;
-            --avatar-radius: 5px;
-          }`;
-          document.head.appendChild(styleAvatarStatus);
+          styleBetterSpotifyPluginSeekBar = document.createElement("style");
+          styleBetterSpotifyPluginSeekBar.textContent = `.container-6sXIoE { border-bottom: none !important;}.container-6sXIoE .bar-g2ZMIm {position: absolute !important;bottom: 0 !important; left: 0 !important;width: 240px !important; height: 54px !important;margin-bottom: 0 !important;-webkit-mask-image: linear-gradient(0.25turn, #0008, #0002) !important;mask-image: linear-gradient(0.25turn, #0008, #0002) !important;border-radius: 0 !important;}.bar-g2ZMIm .barFill-Dhkah7 { border-radius: 0 !important;}.container-6sXIoE.maximized-vv2Wr0 .bar-g2ZMIm { height: 87px !important;}.container-6sXIoE .button-14-BFJ:hover { background-color: transparent !important;}.barFill-Dhkah7, .timeline-UWmgAx:hover .barFill-Dhkah7 { background: var(--spotify-color) !important;}.inner-WRV6k5 { z-index: 1 !important;}.barText-lmqc5O, .grabber-7sd5f5 { display: none !important;}`;
+          document.head.appendChild(styleBetterSpotifyPluginSeekBar);
         }
         break;
-      case "avatarWidthInModals":
+      case "userButtonSpacing":
         try {
-          styleAvatarWidthInModals.remove();
+          styleUserButtonSpacing.remove();
         } catch {}
 
         if (value) {
-          styleAvatarWidthInModals = document.createElement("style");
-          styleAvatarWidthInModals.textContent = `:root {
-              --avatar-width: ${value}px;
-            }`;
-          document.head.appendChild(styleAvatarWidthInModals);
+          styleUserButtonSpacing = document.createElement("style");
+          styleUserButtonSpacing.textContent = `:root {
+            --user-buttons-spacing: ${value}px;
+          }`;
+          document.head.appendChild(styleUserButtonSpacing);
+        }
+        break;
+      case "avatarRoundess":
+        try {
+          styleAvatarRoundess.remove();
+        } catch {}
+
+        if (value) {
+          styleAvatarRoundess = document.createElement("style");
+          styleAvatarRoundess.textContent = `:root {
+            --avatar-radius: ${value}px;
+          }`;
+          document.head.appendChild(styleAvatarRoundess);
+        }
+        break;
+      case "statusRoundness":
+        try {
+          styleStatusRoundness.remove();
+        } catch {}
+
+        if (value) {
+          styleStatusRoundness = document.createElement("style");
+          styleStatusRoundness.textContent = `:root {
+            --status-radius: ${value}px;
+          }`;
+          document.head.appendChild(styleStatusRoundness);
         }
         break;
       case "serverRoundess":
@@ -110,6 +148,32 @@ function updateSetting(setting, value = settings[setting]) {
             --server-radius: ${value}px;
           }`;
           document.head.appendChild(styleServerRoundess);
+        }
+        break;
+      case "avatarWidthInModals":
+        try {
+          styleAvatarWidthInModals.remove();
+        } catch {}
+
+        if (value) {
+          styleAvatarWidthInModals = document.createElement("style");
+          styleAvatarWidthInModals.textContent = `:root {
+            --avatar-width: ${value}px;
+          }`;
+          document.head.appendChild(styleAvatarWidthInModals);
+        }
+        break;
+      case "changeBonfireInModals":
+        try {
+          styleChangeBonfireInModals.remove();
+        } catch {}
+
+        if (value) {
+          styleChangeBonfireInModals = document.createElement("style");
+          styleChangeBonfireInModals.textContent = `:root {
+            --bonfire: url('${value}');
+          }`;
+          document.head.appendChild(styleChangeBonfireInModals);
         }
         break;
       case "coloredEmojiPicker":
@@ -222,6 +286,71 @@ function updateSetting(setting, value = settings[setting]) {
           document.head.appendChild(styleChatButtonsColor);
         }
         break;
+      case "spotifyPluginSeekBar":
+        try {
+          styleSpotifyPluginSeekBar.remove();
+        } catch {}
+
+        if (value) {
+          styleSpotifyPluginSeekBar = document.createElement("style");
+          styleSpotifyPluginSeekBar.textContent = `:root {
+            --spotify-color: ${value};
+          }`;
+          document.head.appendChild(styleSpotifyPluginSeekBar);
+        }
+        break;
+      case "onlineStatusColor":
+        try {
+          styleOnlineStatusColor.remove();
+        } catch {}
+
+        if (value) {
+          styleOnlineStatusColor = document.createElement("style");
+          styleOnlineStatusColor.textContent = `:root {
+            --online: ${value};
+          }`;
+          document.head.appendChild(styleOnlineStatusColor);
+        }
+        break;
+      case "idleStatusColor":
+        try {
+          styleIdleStatusColor.remove();
+        } catch {}
+
+        if (value) {
+          styleIdleStatusColor = document.createElement("style");
+          styleIdleStatusColor.textContent = `:root {
+            --iddle: ${value};
+          }`;
+          document.head.appendChild(styleIdleStatusColor);
+        }
+        break;
+      case "dndStatusColor":
+        try {
+          styleDndStatusColor.remove();
+        } catch {}
+
+        if (value) {
+          styleDndStatusColor = document.createElement("style");
+          styleDndStatusColor.textContent = `:root {
+            --dnd: ${value};
+          }`;
+          document.head.appendChild(styleDndStatusColor);
+        }
+        break;
+      case "offlineStatusColor":
+        try {
+          styleOfflineStatusColor.remove();
+        } catch {}
+
+        if (value) {
+          styleOfflineStatusColor = document.createElement("style");
+          styleOfflineStatusColor.textContent = `:root {
+            --offline: ${value};
+          }`;
+          document.head.appendChild(styleOfflineStatusColor);
+        }
+        break;
       case "circlesNextToRoleNames":
         try {
           styleCirclesNextToRoleNames.remove();
@@ -230,13 +359,7 @@ function updateSetting(setting, value = settings[setting]) {
         if (value) {
           styleCirclesNextToRoleNames = document.createElement("style");
           styleCirclesNextToRoleNames.textContent = `:root {
-            --role-circle: 5px;
-          }`;
-          document.head.appendChild(styleCirclesNextToRoleNames);
-        } else {
-          styleCirclesNextToRoleNames = document.createElement("style");
-          styleCirclesNextToRoleNames.textContent = `:root {
-            --role-circle: 0px;
+            --role-circle: ${value}px;
           }`;
           document.head.appendChild(styleCirclesNextToRoleNames);
         }
@@ -281,19 +404,16 @@ function updateSetting(setting, value = settings[setting]) {
         break;
 
       default:
-        goosemodScope.showToast(`Setting "${setting}" not found.`, {
+        showToast(`Setting "${setting}" not found.`, {
           type: "error",
         });
         break;
     }
   } catch (error) {
-    goosemodScope.logger.debug(name, error);
-    goosemodScope.showToast(
-      `Failed to set setting "${setting}" to "${value}".`,
-      {
-        type: "error",
-      }
-    );
+    debug(name, error);
+    showToast(`Failed to set setting "${setting}" to "${value}".`, {
+      type: "error",
+    });
   }
 }
 
@@ -311,41 +431,44 @@ export default {
       style = document.createElement("style");
       style.textContent = `@import "https://nyri4.github.io/Comfy/betterdiscord/main.css";
       
-        .theme-dark {
-          --background-tertiary: #101320;
-          --background-secondary: #1e2233;
-          --background-secondary-alt: #191f2e;
-          --background-primary: #23283d;
-          --background-mobile-primary: #23283d;
-          --channeltextarea-background: #191f2e;
-          --background-accent: #6E85D3;
-          --background-modifier-hover: #1c2030;
-          --background-modifier-active: #1a1e2e;
-          --background-modifier-selected: #191f2e;
-          --deprecated-card-bg: #12141f63;
-          --background-floating: #101320;
-          --deprecated-quickswitcher-input-background:#101320;
-          --elevation-low: none;
-          --scrollbar-auto-thumb: #121722;
-          --scrollbar-auto-track: #191f2e;
-          --scrollbar-thin-thumb: #141925;
+      .theme-dark {
+        --background-tertiary: #101320;
+        --background-secondary: #1e2233;
+        --background-secondary-alt: #191f2e;
+        --background-primary: #23283d;
+        --background-mobile-primary: #23283d;
+        --background-mobile-secondary: #1e2233;
+        --channeltextarea-background: #191f2e;
+        --background-accent: #6E85D3;
+        --background-modifier-hover: #1c2030;
+        --background-modifier-active: #1a1e2e;
+        --background-modifier-selected: #191f2e;
+        --deprecated-card-bg: #12141f63;
+        --background-floating: #101320;
+        --deprecated-quickswitcher-input-background:#101320;
+        --elevation-low: none;
+        --scrollbar-auto-thumb: #121722;
+        --scrollbar-auto-track: #191f2e;
+        --scrollbar-thin-thumb: #141925;
       }
       
       .theme-light { /* I don't support light theme it's just for the "Create a server" popup */
-          --background-tertiary: #101320;
-          --background-secondary: #1e2233;
-          --background-secondary-alt: #191f2e;
-          --background-primary: #23283d;
-          --background-accent: #6E85D3;
-          --header-primary: #fff;
-          --header-secondary: #b1b5b9;
-          --text-normal: #8e9297;
+        --background-tertiary: #101320;
+        --background-secondary: #1e2233;
+        --background-secondary-alt: #191f2e;
+        --background-primary: #23283d;
+        --background-accent: #6E85D3;
+        --background-modifier-hover: #262b41;
+        --background-modifier-active: #262b41;
+        --header-primary: #fff;
+        --header-secondary: #b1b5b9;
+        --text-normal: #8e9297;
       }`;
       document.head.appendChild(style);
 
       updateSettings();
 
-      goosemodScope.settings.createItem(name, [
+      settingsPage.createItem(name, [
         `(v${version})`,
         {
           type: "header",
@@ -365,19 +488,20 @@ export default {
         },
         {
           type: "toggle",
-          text: "Avatar Status",
-          onToggle: (value) => updateSetting("avatarStatus", value),
-          isToggled: () => settings.avatarStatus,
+          text: "Better Spotify Plugin Seek Bar",
+          onToggle: (value) =>
+            updateSetting("betterSpotifyPluginSeekBar", value),
+          isToggled: () => settings.betterSpotifyPluginSeekBar,
+        },
+        {
+          type: "header",
+          text: "Other Settings",
         },
         {
           type: "toggle",
           text: "Colored Emoji Picker",
           onToggle: (value) => updateSetting("coloredEmojiPicker", value),
           isToggled: () => settings.coloredEmojiPicker,
-        },
-        {
-          type: "header",
-          text: "Other Settings",
         },
         {
           type: "text-and-color",
@@ -422,10 +546,34 @@ export default {
           initialValue: () => settings.chatButtonsColor,
         },
         {
-          type: "toggle",
-          text: "Circles Next To Role Names",
-          onToggle: (value) => updateSetting("circlesNextToRoleNames", value),
-          isToggled: () => settings.circlesNextToRoleNames,
+          type: "text-and-color",
+          text: "Spotify Plugin Seek Bar",
+          oninput: (value) => updateSetting("spotifyPluginSeekBar", value),
+          initialValue: () => settings.spotifyPluginSeekBar,
+        },
+        {
+          type: "text-and-color",
+          text: "Online Status Color",
+          oninput: (value) => updateSetting("onlineStatusColor", value),
+          initialValue: () => settings.onlineStatusColor,
+        },
+        {
+          type: "text-and-color",
+          text: "Idle Status Color",
+          oninput: (value) => updateSetting("idleStatusColor", value),
+          initialValue: () => settings.idleStatusColor,
+        },
+        {
+          type: "text-and-color",
+          text: "Dnd Status Color",
+          oninput: (value) => updateSetting("dndStatusColor", value),
+          initialValue: () => settings.dndStatusColor,
+        },
+        {
+          type: "text-and-color",
+          text: "Offline Status Color",
+          oninput: (value) => updateSetting("offlineStatusColor", value),
+          initialValue: () => settings.offlineStatusColor,
         },
         {
           type: "toggle",
@@ -450,7 +598,7 @@ export default {
     },
 
     onRemove: async () => {
-      goosemodScope.settings.removeItem(name);
+      settingsPage.removeItem(name);
 
       style.remove();
       updateSettings(false);
