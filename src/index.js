@@ -94,7 +94,10 @@ function updateSetting(setting, value = settings[setting]) {
 
         if (value) {
           styleBetterSpotifyPluginSeekBar = document.createElement("style");
-          styleBetterSpotifyPluginSeekBar.textContent = `.container-6sXIoE { border-bottom: none !important;}.container-6sXIoE .bar-g2ZMIm {position: absolute !important;bottom: 0 !important; left: 0 !important;width: 240px !important; height: 54px !important;margin-bottom: 0 !important;-webkit-mask-image: linear-gradient(0.25turn, #0008, #0002) !important;mask-image: linear-gradient(0.25turn, #0008, #0002) !important;border-radius: 0 !important;}.bar-g2ZMIm .barFill-Dhkah7 { border-radius: 0 !important;}.container-6sXIoE.maximized-vv2Wr0 .bar-g2ZMIm { height: 87px !important;}.container-6sXIoE .button-14-BFJ:hover { background-color: transparent !important;}.barFill-Dhkah7, .timeline-UWmgAx:hover .barFill-Dhkah7 { background: var(--spotify-color) !important;}.inner-WRV6k5 { z-index: 1 !important;}.barText-lmqc5O, .grabber-7sd5f5 { display: none !important;}`;
+          styleBetterSpotifyPluginSeekBar.textContent = `
+            .container-6sXIoE { border-bottom: none !important; padding-top: 0 !important; margin: 0 !important;}
+            .container-6sXIoE .timeline-UWmgAx { position: absolute !important; left: 0px !important;width: 240px !important; height: 53px !important;margin: 0;-webkit-mask-image: linear-gradient(0.25turn, #0008, #0002) !important;mask-image: linear-gradient(0.25turn, #0008, #0002) !important;border-radius: 0 !important;}.bar-g2ZMIm .barFill-Dhkah7 { border-radius: 0 !important;}.container-6sXIoE.maximized-vv2Wr0 .bar-g2ZMIm { height: 87px !important;}.container-6sXIoE .button-14-BFJ:hover { background-color: transparent !important;}.barFill-Dhkah7, .timeline-UWmgAx:hover .barFill-Dhkah7 { background: var(--spotify-color) !important;}.inner-WRV6k5 { z-index: 1 !important;}.barText-lmqc5O, .grabber-7sd5f5 { display: none !important;}.container-6sXIoE .bar-g2ZMIm { width: 100% !important; height: 100% !important; margin-bottom: 0 !important;}
+          `;
           document.head.appendChild(styleBetterSpotifyPluginSeekBar);
         }
         break;
@@ -450,6 +453,7 @@ export default {
         --scrollbar-auto-thumb: #121722;
         --scrollbar-auto-track: #191f2e;
         --scrollbar-thin-thumb: #141925;
+        --activity-card-background: #101320;
       }
       
       .theme-light { /* I don't support light theme it's just for the "Create a server" popup */
