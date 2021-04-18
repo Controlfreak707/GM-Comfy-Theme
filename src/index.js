@@ -8,7 +8,10 @@ let settings = {
   userPopoutAnimation: true,
   scrollbars: false,
   betterSpotifyPluginSeekBar: true,
+  statusBackground: "https://i.imgur.com/yHP6sgj.png",
   userButtonSpacing: 8,
+  userAvatarLeft: 327.5,
+  userAvatarBottom: 26.5,
   avatarRoundess: 5,
   statusRoundness: 3,
   serverRoundess: 8,
@@ -35,7 +38,10 @@ let settings = {
 let styleUserPopoutAnimation;
 let styleScrollbars;
 let styleBetterSpotifyPluginSeekBar;
+let styleStatusBackground;
 let styleUserButtonSpacing;
+let styleUserAvatarLeft;
+let styleUserAvatarBottom;
 let styleAvatarRoundess;
 let styleStatusRoundness;
 let styleServerRoundess;
@@ -101,6 +107,19 @@ function updateSetting(setting, value = settings[setting]) {
           document.head.appendChild(styleBetterSpotifyPluginSeekBar);
         }
         break;
+      case "statusBackground":
+        try {
+          styleStatusBackground.remove();
+        } catch {}
+
+        if (value) {
+          styleStatusBackground = document.createElement("style");
+          styleStatusBackground.textContent = `:root {
+            --status-background: url('${value}');
+          }`;
+          document.head.appendChild(styleStatusBackground);
+        }
+        break;
       case "userButtonSpacing":
         try {
           styleUserButtonSpacing.remove();
@@ -112,6 +131,32 @@ function updateSetting(setting, value = settings[setting]) {
             --user-buttons-spacing: ${value}px;
           }`;
           document.head.appendChild(styleUserButtonSpacing);
+        }
+        break;
+      case "userAvatarLeft":
+        try {
+          styleUserAvatarLeft.remove();
+        } catch {}
+
+        if (value) {
+          styleUserAvatarLeft = document.createElement("style");
+          styleUserAvatarLeft.textContent = `:root {
+            --avatar-left: ${value}px;
+          }`;
+          document.head.appendChild(styleUserAvatarLeft);
+        }
+        break;
+      case "userAvatarBottom":
+        try {
+          styleUserAvatarBottom.remove();
+        } catch {}
+
+        if (value) {
+          styleUserAvatarBottom = document.createElement("style");
+          styleUserAvatarBottom.textContent = `:root {
+            --avatar-bottom: ${value}px;
+          }`;
+          document.head.appendChild(styleUserAvatarBottom);
         }
         break;
       case "avatarRoundess":
@@ -443,6 +488,7 @@ export default {
         --background-mobile-secondary: #1e2233;
         --channeltextarea-background: #191f2e;
         --background-accent: #6E85D3;
+        --background-message-hover: transparent;
         --background-modifier-hover: #1c2030;
         --background-modifier-active: #1a1e2e;
         --background-modifier-selected: #191f2e;
@@ -455,7 +501,7 @@ export default {
         --scrollbar-thin-thumb: #141925;
         --activity-card-background: #101320;
       }
-      
+ 
       .theme-light { /* I don't support light theme it's just for the "Create a server" popup */
         --background-tertiary: #101320;
         --background-secondary: #1e2233;
